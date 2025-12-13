@@ -1,25 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
-  m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
-  m_Data:
-    m_SerializedData: []
-  m_GUID: 05c9ea03beb964287b3bf82a058696b7
-  m_SerializeEntries: []
-  m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 2e3a51ccb27e040019378994951402ba, type: 2}
-  m_SchemaSet:
-    m_Schemas:
-    - {fileID: 11400000, guid: 69f176528fde94898b5301d81053f1f1, type: 2}
-    - {fileID: 11400000, guid: c70609f35b7784767a624f3bc6264613, type: 2}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e258e08c49f29b0c2b56d2927ca156158644458537fdfdae4712692d8eebeead
+size 822
