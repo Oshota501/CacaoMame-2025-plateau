@@ -25,7 +25,7 @@ public class ClonerSetting : MonoBehaviour
     {
         if (mainCloner.isInvoke) return;
         mainCloner.isInvoke = true ;
-        mainCloner.Invoke(nameof(CloneInv), 1.5f);
+        mainCloner.Invoke(nameof(CloneInv), 1.2f);
     }
     private void CloneInv () {
         mainCloner.isInvoke = false ;
