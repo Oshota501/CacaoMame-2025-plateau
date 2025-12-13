@@ -5,6 +5,7 @@ public class ObjectCloner : MonoBehaviour
 {
     [SerializeField] private GameObject NextPrefab ;
     public float Sensibility = 0.005f;
+    
     // public GameObject box ;
     private bool isProcessed = false;
     private Rigidbody rb ;
@@ -54,6 +55,8 @@ public class ObjectCloner : MonoBehaviour
             Destroy(this.gameObject) ;
             Destroy(collision.gameObject) ;
             Debug.Log("collision");
+            GameController.scoreBoad.ScoreAdd(100);
+
             if(NextPrefab == null)
             {
                 return ;

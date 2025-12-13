@@ -47,7 +47,15 @@ Shader "Unlit/RainbowShader"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = fixed4(1.0,1.0,0.0,1.0);
+                fixed4 col = fixed4(
+                    0.0,
+                    1.0,
+                    0.0,
+                    1.0
+                );
+                if((cos(i.uv.x*140.0)+1.0)/2.0 >= 0.3 ){
+                    col.g = 0.0 ;
+                }
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

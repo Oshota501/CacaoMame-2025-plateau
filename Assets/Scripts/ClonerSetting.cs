@@ -14,12 +14,12 @@ public class ClonerSetting : MonoBehaviour
     public static ClonerSetting mainCloner ;
     private bool isInvoke = false ;
     public static void Clone () {
-        int r = Random.Range(0, mainCloner.canCloneObj.Length);
+        int r = Random.Range(0, mainCloner.canCloneObj.Length - 2 );
         mainCloner.NewFallObj(mainCloner.canCloneObj[r],mainCloner.transform.position);
     }
     public static void CloneNext (GameObject obj,Vector3 position)
     {
-        mainCloner.NewFallObj(obj,position) ;
+        mainCloner.NewFallingObj(obj,position) ;
     }
     public static void TimeOutSpown ()
     {
@@ -39,6 +39,17 @@ public class ClonerSetting : MonoBehaviour
         
         // クローンに対して操作を行う
         clone.SetActive(true);
+    }
+    private void NewFallingObj (GameObject obj,Vector3 position){
+        // Prefabをインスタンス化し、生成されたクローンを取得
+        GameObject clone = Instantiate(obj, position, Quaternion.identity);
+        
+        // クローンに対して操作を行う
+        clone.SetActive(true);
+
+        Rigidbody rb = clone.GetComponent<Rigidbody>();
+
+        rb.useGravity = true ;
     }
 
     // Update is called once per frame
