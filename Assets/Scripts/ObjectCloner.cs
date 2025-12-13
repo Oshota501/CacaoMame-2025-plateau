@@ -1,9 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectCloner : MonoBehaviour
 {
+    [SerializeField] private GameObject NextPrefab ;
     public float Sensibility = 0.005f;
     // public GameObject box ;
+    private bool isProcessed = false;
     private Rigidbody rb ;
     private bool isFalling = false ;
     // Start is called before the first frame update
@@ -40,17 +43,23 @@ public class ObjectCloner : MonoBehaviour
         if(Input.GetKey(KeyCode.C)){
             this.isFalling = true ;
             this.rb.useGravity = true ;
-            Invoke(nameof(Clone), 0.7f);
+            ClonerSetting.TimeOutSpown() ;
         }
     }
     void OnCollisionEnter(Collision collision){
+        if (isProcessed) return;
+        isProcessed = true ;
+        
         if(collision.gameObject.name == this.gameObject.name){
             Destroy(this.gameObject) ;
             Destroy(collision.gameObject) ;
+            Debug.Log("collision");
+            if(NextPrefab == null)
+            {
+                return ;
+            }
+            ClonerSetting.CloneNext(NextPrefab,this.transform.position) ;
         }
-    }
-    private void Clone() {
-        ClonerSetting.Clone();
     }
     // private bool IsInArea_X ( Vector3 pos)
     // {
