@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CacaoMame-2025-12-13.sln"
+    "dotnet.defaultSolution": "CacaoMame-2025-plateau.sln"
 }
