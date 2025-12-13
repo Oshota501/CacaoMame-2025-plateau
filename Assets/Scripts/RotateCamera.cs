@@ -6,15 +6,12 @@ using UnityEngine;
 public class RotateCamera : MonoBehaviour
 {
     public GameObject CenterObject ;
-
     public float Rad ;
-
     public float Sensibility ;
-
     public float CameraHight ;
-
     private float phase = 0f ;
-
+    public float MaxHeight = 15f;
+    public float MinHeight = 0f ;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +28,30 @@ public class RotateCamera : MonoBehaviour
         if (Input.GetKey (KeyCode.E))
         {
             this.phase -= Sensibility ;
+        }
+        if (Input.GetKey (KeyCode.LeftShift))
+        {
+            if(this.CameraHight >= MinHeight)
+            {
+                this.CameraHight -= Sensibility * 4f ;
+            }
+            else
+            {
+                this.CameraHight = MinHeight ;
+            }
+            
+        }
+        if (Input.GetKey (KeyCode.Space))
+        {
+            if(this.CameraHight <= MaxHeight)
+            {
+                this.CameraHight += Sensibility * 4f ;
+            }
+            else
+            {
+                this.CameraHight = MaxHeight ;
+            }
+           
         }
     }
     void LateUpdate()
