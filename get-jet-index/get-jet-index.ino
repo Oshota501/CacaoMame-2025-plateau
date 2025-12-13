@@ -17,10 +17,11 @@ const int EYE_Y_OFFSET = -10;   // 顔の中心からの目の高さ
 const int EYE_X_SPACING = 35;   // 目の間隔
 
 // 色の定義（RGB565フォーマット）
-const uint16_t COLOR_BG     = 0xEF5D; // 薄いピンク背景
-const uint16_t COLOR_BODY   = 0xFFFF; // 白い体
-const uint16_t COLOR_CHEEK  = 0xFCCC; // ピンクのほっぺ
-const uint16_t COLOR_OUTLINE= 0x0000; // 黒い輪郭線
+// ★ここを変更しました：ピンクのキャラに合わせて配色を調整
+const uint16_t COLOR_BG     = 0xFFFF; // 背景：白（ピンクを引き立てるため）
+const uint16_t COLOR_BODY   = 0xFE19; // 体：ピンク (M5StackのPINK)
+const uint16_t COLOR_CHEEK  = 0xF800; // ほっぺ：赤（体のピンクより濃くして目立たせる）
+const uint16_t COLOR_OUTLINE= 0x0000; // 輪郭：黒
 
 // まばたき用変数
 unsigned long lastBlinkTime = 0;
@@ -81,6 +82,7 @@ void drawFace(int offsetX, int offsetY) {
   } else {
       // ニコニコ口
       canvas.fillEllipse(mouthX, mouthY, 8, 5, COLOR_OUTLINE);
+      // 上半分を「体と同じ色」で消して半月型にする
       canvas.fillEllipse(mouthX, mouthY - 2, 8, 5, COLOR_BODY); 
   }
 
@@ -102,9 +104,7 @@ void loop() {
   float rollN  = constrain(roll,  -30, 30) / 30.0;
   float pitchN = constrain(pitch, -30, 30) / 30.0;
 
-  // ★ここで軸の割り当てを修正しました★
-  // pitchN (左右の傾き) を X座標の移動量(featureDX) に適用
-  // rollN  (上下の傾き) を Y座標の移動量(featureDY) に適用
+  // 倒した方向に動くよう軸を割り当て
   int featureDX = pitchN * FACE_OFFSET_MAX;
   int featureDY = rollN  * FACE_OFFSET_MAX;
 
