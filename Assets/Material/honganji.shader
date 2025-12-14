@@ -1,4 +1,4 @@
-Shader "Unlit/KusoKimoShader"
+Shader "Unlit/honganji"
 {
     Properties
     {
@@ -47,19 +47,12 @@ Shader "Unlit/KusoKimoShader"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = fixed4 (
-                    abs(sin(length(i.uv.y)*15.0+_Time.y*15.0)) ,
-                    abs(cos(length(i.uv.x)*15.0+_Time.y*15.0)) ,
-                    fmod(_Time.y*15.0 ,1.0) ,
+                fixed4 col = fixed4(
+                    (cos(_Time.y*2.0)*3.0+1.0)/4.0 ,
+                    (sin(_Time.y*2.0)*3.0+1.0)/4.0 ,
+                    0.1 ,
                     1.0
                 );
-                fixed4 col2 = fixed4 (
-                    fmod(sin(atan(i.uv.x/i.uv.y) + _Time.y*15.0),1.0) ,
-                    abs(cos(_Time.y*30.0)) ,
-                    abs(sin(_Time.y*30.0)) ,
-                    1.0
-                );
-                
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;

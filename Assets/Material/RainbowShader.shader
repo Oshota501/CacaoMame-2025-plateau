@@ -53,8 +53,8 @@ Shader "Unlit/RainbowShader"
                     0.0,
                     1.0
                 );
-                if((cos(i.uv.x*80.0)+1.0)/2.0 >= 0.3 ){
-                    col.g = 0.0 ;
+                if((cos(i.uv.x*80.0 + _Time.y*40.0)+1.0)/2.0 >= 0.3 ){
+                    col.g = (sin(_Time.x*50.0)+1.0)/5.0 ;
                 }
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
