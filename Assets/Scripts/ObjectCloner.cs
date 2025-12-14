@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectCloner : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ObjectCloner : MonoBehaviour
     private bool isProcessed = false;
     private Rigidbody rb ;
     private bool isFalling = false ;
+    private bool TimeCount = false ;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class ObjectCloner : MonoBehaviour
         if(!isFalling){
             KeyEvents();
         }
+        this.IsInRange();
     }
     private void KeyEvents () {
         if(Input.GetKey(KeyCode.W))
@@ -44,9 +47,27 @@ public class ObjectCloner : MonoBehaviour
         if(Input.GetKey(KeyCode.C)){
             this.isFalling = true ;
             this.rb.useGravity = true ;
+            this.Invoke(nameof(SetTimeCount),2f);
             ClonerSetting.TimeOutSpown() ;
         }
     }
+    public void SetTimeCount()
+    {
+        TimeCount = true;
+    }
+    public void MoveToFin()
+    {
+        Debug.Log("Move To Fin.Game End.");
+        SceneManager.LoadScene("Fin");
+    }
+    public void IsInRange()
+    {   if (TimeCount && this.transform.position.y >= 83f){
+            
+            MoveToFin();
+    
+    }}
+ 
+
     void OnCollisionEnter(Collision collision){
         if (isProcessed) return;
         isProcessed = true ;
