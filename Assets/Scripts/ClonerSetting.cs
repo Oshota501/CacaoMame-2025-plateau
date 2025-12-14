@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ClonerSetting : MonoBehaviour
 {
+    public Transform CloneParent ;
     public GameObject[] canCloneObj ;
     // Start is called before the first frame update
     void Start()
@@ -35,14 +36,14 @@ public class ClonerSetting : MonoBehaviour
     // 1. 単純に複製する（位置や回転はオリジナルと同じ）
     private void NewFallObj (GameObject obj,Vector3 position){
         // Prefabをインスタンス化し、生成されたクローンを取得
-        GameObject clone = Instantiate(obj, position, Quaternion.identity);
+        GameObject clone = Instantiate(obj, position, Quaternion.identity,CloneParent);
         
         // クローンに対して操作を行う
         clone.SetActive(true);
     }
     private void NewFallingObj (GameObject obj,Vector3 position){
         // Prefabをインスタンス化し、生成されたクローンを取得
-        GameObject clone = Instantiate(obj, position, Quaternion.identity);
+        GameObject clone = Instantiate(obj, position, Quaternion.identity,CloneParent);
         
         // クローンに対して操作を行う
         clone.SetActive(true);

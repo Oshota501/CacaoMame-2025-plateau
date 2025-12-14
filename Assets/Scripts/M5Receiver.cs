@@ -5,13 +5,13 @@ using System;
 public class M5Receiver : MonoBehaviour
 {
     // M5Stackがつながっているポート名に合わせてください (例: "COM3", "COM4", "/dev/tty...")
-    public string portName = "/dev/tty.usbserial-59740081181";
+    public string portName = "/dev/cu.usbserial-59740081181";
     public int baudRate = 115200;
-
+    public float sentibility = 0.001f ;
     SerialPort serialPort;
     
     // 回転を適用するオブジェクト
-    public Transform targetObj;
+    public GameObject targetObj;
 
     void Start()
     {
@@ -47,8 +47,12 @@ public class M5Receiver : MonoBehaviour
                     // Unity上のオブジェクトを回転させる
                     if (targetObj != null)
                     {
+                        Debug.Log(pitch);
+                        Debug.Log(roll); 
                         // M5Stackの動きに合わせて回転 (軸は適宜調整してください)
-                        targetObj.localRotation = Quaternion.Euler(pitch, 0, -roll);
+                        ObjectCloner isFallObj = targetObj.GetComponent<ObjectCloner> () ;
+
+                        targetObj.transform.position += new Vector3(-pitch*sentibility,0f,roll*sentibility);
                     }
                     
                     // まばたきデータ(0 or 1)も values[2] で取得可能です

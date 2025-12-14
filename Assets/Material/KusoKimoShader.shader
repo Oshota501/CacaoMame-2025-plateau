@@ -53,12 +53,13 @@ Shader "Unlit/KusoKimoShader"
                     fmod(_Time.y*15.0 ,1.0) ,
                     1.0
                 );
-                fixed4 col = fixed4 (
+                fixed4 col2 = fixed4 (
                     fmod(sin(atan(i.uv.x/i.uv.y) + _Time.y*15.0),1.0) ,
                     abs(cos(_Time.y*30.0)) ,
                     abs(sin(_Time.y*30.0)) ,
                     1.0
                 );
+                
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
