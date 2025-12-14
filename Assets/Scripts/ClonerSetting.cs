@@ -37,6 +37,7 @@ public class ClonerSetting : MonoBehaviour
     private void NewFallObj (GameObject obj,Vector3 position){
         // Prefabをインスタンス化し、生成されたクローンを取得
         GameObject clone = Instantiate(obj, position, Quaternion.identity,CloneParent);
+        M5Receiver.targetObj = clone ;
         
         // クローンに対して操作を行う
         clone.SetActive(true);

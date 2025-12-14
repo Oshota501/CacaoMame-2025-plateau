@@ -11,7 +11,7 @@ public class M5Receiver : MonoBehaviour
     SerialPort serialPort;
     
     // 回転を適用するオブジェクト
-    public GameObject targetObj;
+    public static GameObject targetObj;
 
     void Start()
     {
@@ -47,11 +47,8 @@ public class M5Receiver : MonoBehaviour
                     // Unity上のオブジェクトを回転させる
                     if (targetObj != null)
                     {
-                        Debug.Log(pitch);
-                        Debug.Log(roll); 
+                        Debug.Log("M5Stack 正常動作中");
                         // M5Stackの動きに合わせて回転 (軸は適宜調整してください)
-                        ObjectCloner isFallObj = targetObj.GetComponent<ObjectCloner> () ;
-
                         targetObj.transform.position += new Vector3(-pitch*sentibility,0f,roll*sentibility);
                     }
                     

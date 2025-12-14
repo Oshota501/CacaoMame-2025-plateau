@@ -10,7 +10,7 @@ public class ObjectCloner : MonoBehaviour
     // public GameObject box ;
     private bool isProcessed = false;
     private Rigidbody rb ;
-    private bool isFalling = false ;
+    public bool isFalling = false ;
     private bool TimeCount = false ;
     // Start is called before the first frame update
     void Start()
@@ -45,6 +45,7 @@ public class ObjectCloner : MonoBehaviour
             this.transform.position -= new Vector3(Sensibility,0f,0f);
         }
         if(Input.GetKey(KeyCode.C)){
+            M5Receiver.targetObj = null ;
             this.isFalling = true ;
             this.rb.useGravity = true ;
             this.Invoke(nameof(SetTimeCount),2f);
@@ -61,13 +62,12 @@ public class ObjectCloner : MonoBehaviour
         SceneManager.LoadScene("Fin");
     }
     public void IsInRange()
-    {   if (TimeCount && this.transform.position.y >= 83f){
-            
+    {   
+        if (TimeCount && this.transform.position.y >= 83f){
             MoveToFin();
-    
-    }}
+        }
+    }
  
-
     void OnCollisionEnter(Collision collision){
         if (isProcessed) return;
         isProcessed = true ;
