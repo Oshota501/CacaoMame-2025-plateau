@@ -1,5 +1,8 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
+using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 public class ClonerSetting : MonoBehaviour
@@ -15,7 +18,7 @@ public class ClonerSetting : MonoBehaviour
     public static ClonerSetting mainCloner ;
     private bool isInvoke = false ;
     public static void Clone () {
-        int r = Random.Range(0, mainCloner.canCloneObj.Length - 2 );
+        int r = UnityEngine.Random.Range(0, mainCloner.canCloneObj.Length - 2 );
         mainCloner.NewFallObj(mainCloner.canCloneObj[r],mainCloner.transform.position);
     }
     public static void CloneNext (GameObject obj,Vector3 position)
@@ -50,13 +53,13 @@ public class ClonerSetting : MonoBehaviour
         clone.SetActive(true);
 
         Rigidbody rb = clone.GetComponent<Rigidbody>();
-
+        ObjectCloner oc = clone.GetComponent<ObjectCloner>();
+        oc.isFalling = true ;
         rb.useGravity = true ;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

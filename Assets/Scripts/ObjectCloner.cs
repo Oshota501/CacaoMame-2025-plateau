@@ -1,3 +1,4 @@
+using GeoJSON.Net.Geometry;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,11 +24,16 @@ public class ObjectCloner : MonoBehaviour
     void Update()
     {
         if(!isFalling){
+            //this.transform.position = new Vector3(transform.position.x,0f,transform.position.z) ;
             KeyEvents();
         }
         this.IsInRange();
     }
     private void KeyEvents () {
+        if (Input.GetMouseButton(0))
+        {
+            SetClone();
+        }
         if(Input.GetKey(KeyCode.W))
         {
             this.transform.position += new Vector3(0f,0f,Sensibility);
@@ -45,12 +51,16 @@ public class ObjectCloner : MonoBehaviour
             this.transform.position -= new Vector3(Sensibility,0f,0f);
         }
         if(Input.GetKey(KeyCode.C)){
-            M5Receiver.targetObj = null ;
-            this.isFalling = true ;
-            this.rb.useGravity = true ;
-            this.Invoke(nameof(SetTimeCount),2f);
-            ClonerSetting.TimeOutSpown() ;
+            SetClone();
         }
+    }
+    private void SetClone()
+    {
+        M5Receiver.targetObj = null ;
+        this.isFalling = true ;
+        this.rb.useGravity = true ;
+        this.Invoke(nameof(SetTimeCount),2f);
+        ClonerSetting.TimeOutSpown() ;
     }
     public void SetTimeCount()
     {
@@ -63,9 +73,16 @@ public class ObjectCloner : MonoBehaviour
     }
     public void IsInRange()
     {   
-        if (TimeCount && 
-            ( this.transform.position.y >= 83f ||
-            this.transform.position.y <= 65f )
+        // Debug.Log(this.name + (
+        //         this.transform.localPosition.y >= 0f ||
+        //         this.transform.localPosition.y <= -10.0f 
+        //     ).ToString());
+        if (
+            TimeCount && 
+            (
+                this.transform.localPosition.y >= 0f ||
+                this.transform.localPosition.y <= -10.0f 
+            )
         ){
             MoveToFin();
         }
