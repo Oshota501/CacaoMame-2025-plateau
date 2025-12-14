@@ -9,3 +9,6 @@ git clone https://github.com/Oshota501/CacaoMame-2025-plateau
 ```
 - YOUR_LOCAL_TGZ ... tgzファイルのパスを書いてください
 - UnityHubからaddを選択して開いてください。
+
+
+jっj
