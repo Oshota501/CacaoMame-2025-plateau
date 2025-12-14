@@ -68,11 +68,12 @@ public class ObjectCloner : MonoBehaviour
         }
     }
  
-    void OnCollisionEnter(Collision collision){
+    void OnCollisionStay(Collision collision){
         if (isProcessed) return;
-        isProcessed = true ;
-        
         if(collision.gameObject.name == this.gameObject.name){
+            isProcessed = true ;
+            ObjectCloner oc = collision.gameObject.GetComponent<ObjectCloner> () ;
+            oc.isProcessed = true ;
             Destroy(this.gameObject) ;
             Destroy(collision.gameObject) ;
             Debug.Log("collision");
