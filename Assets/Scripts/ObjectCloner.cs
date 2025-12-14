@@ -63,7 +63,10 @@ public class ObjectCloner : MonoBehaviour
     }
     public void IsInRange()
     {   
-        if (TimeCount && this.transform.position.y >= 83f){
+        if (TimeCount && 
+            ( this.transform.position.y >= 83f ||
+            this.transform.position.y <= 65f )
+        ){
             MoveToFin();
         }
     }
