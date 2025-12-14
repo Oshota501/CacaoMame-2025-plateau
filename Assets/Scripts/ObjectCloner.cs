@@ -1,14 +1,18 @@
+using GeoJSON.Net.Geometry;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectCloner : MonoBehaviour
 {
     [SerializeField] private GameObject NextPrefab ;
     public float Sensibility = 0.005f;
+    
     // public GameObject box ;
     private bool isProcessed = false;
     private Rigidbody rb ;
-    private bool isFalling = false ;
+    public bool isFalling = false ;
+    private bool TimeCount = false ;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +24,16 @@ public class ObjectCloner : MonoBehaviour
     void Update()
     {
         if(!isFalling){
+            //this.transform.position = new Vector3(transform.position.x,0f,transform.position.z) ;
             KeyEvents();
         }
+        this.IsInRange();
     }
     private void KeyEvents () {
+        if (Input.GetMouseButton(0))
+        {
+            SetClone();
+        }
         if(Input.GetKey(KeyCode.W))
         {
             this.transform.position += new Vector3(0f,0f,Sensibility);
@@ -41,19 +51,54 @@ public class ObjectCloner : MonoBehaviour
             this.transform.position -= new Vector3(Sensibility,0f,0f);
         }
         if(Input.GetKey(KeyCode.C)){
-            this.isFalling = true ;
-            this.rb.useGravity = true ;
-            ClonerSetting.TimeOutSpown() ;
+            SetClone();
         }
     }
-    void OnCollisionEnter(Collision collision){
+    private void SetClone()
+    {
+        M5Receiver.targetObj = null ;
+        this.isFalling = true ;
+        this.rb.useGravity = true ;
+        this.Invoke(nameof(SetTimeCount),2f);
+        ClonerSetting.TimeOutSpown() ;
+    }
+    public void SetTimeCount()
+    {
+        TimeCount = true;
+    }
+    public void MoveToFin()
+    {
+        Debug.Log("Move To Fin.Game End.");
+        SceneManager.LoadScene("Fin");
+    }
+    public void IsInRange()
+    {   
+        // Debug.Log(this.name + (
+        //         this.transform.localPosition.y >= 0f ||
+        //         this.transform.localPosition.y <= -10.0f 
+        //     ).ToString());
+        if (
+            TimeCount && 
+            (
+                this.transform.localPosition.y >= 0f ||
+                this.transform.localPosition.y <= -10.0f 
+            )
+        ){
+            MoveToFin();
+        }
+    }
+ 
+    void OnCollisionStay(Collision collision){
         if (isProcessed) return;
-        isProcessed = true ;
-        
         if(collision.gameObject.name == this.gameObject.name){
+            isProcessed = true ;
+            ObjectCloner oc = collision.gameObject.GetComponent<ObjectCloner> () ;
+            oc.isProcessed = true ;
             Destroy(this.gameObject) ;
             Destroy(collision.gameObject) ;
             Debug.Log("collision");
+            GameController.scoreBoad.ScoreAdd(100);
+
             if(NextPrefab == null)
             {
                 return ;
